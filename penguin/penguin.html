@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Waddle, little penguin!</title>
+  </head>
+  <style>
+	body {
+	  font-size: 15pt;
+	}
+    #penguin {
+	  position: absolute;
+	  width: 40px;
+	  height: 40px;
+	  background-image: url(penguin.gif);
+	}
+  </style>
+  <script>
+    "use strict";
+	var penguinX = 100, penguinY = 100, mouseX, mouseY;
+	document.onmousemove = mouseMoved;
+	window.onload = setInterval(tick, 12);
+	
+	function mouseMoved(e) {
+	  mouseX = e.clientX;
+	  mouseY = e.clientY;
+	}
+	
+	function tick() {
+	  if (mouseX === undefined || mouseY === undefined) { return; }
+
+	  var distX = mouseX - penguinX,
+	   distY = mouseY - penguinY,
+	   dist = Math.sqrt(distX * distX + distY * distY),
+	   speed = dist < 100 ? 1 : dist / 100,
+	   deltaX = distX / dist * speed,
+	   deltaY = distY / dist * speed;
+
+	  penguinX += deltaX;
+	  penguinY += deltaY;
+
+	  var penguinDiv = document.getElementById('penguin');
+ 	  penguinDiv.style.left = penguinX-20 + "px";
+	  penguinDiv.style.top  = penguinY-20 + "px";
+	}
+  </script>
+  <body>
+    Even if you move your mouse around, I'll still get you...!
+	<div id="penguin"></div>
+  </body>
+</html>
